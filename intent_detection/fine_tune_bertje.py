@@ -1,27 +1,4 @@
 import pandas as pd
-import sys
-from pathlib import Path
-
-# Add project root to path for importing config
-sys.path.append(str(Path(__file__).parent.parent))
-from config import get_data_path, COLUMN_NAMES, MODEL_CONFIG
-
-# Load data using configuration
-try:
-    data = pd.read_excel(get_data_path("synthetic_data"))
-except Exception as e:
-    print(f"Error loading data: {e}")
-    print("Please update the data path in config.py")
-    sys.exit(1)
-
-data.dropna(subset=[COLUMN_NAMES["synthetic_data"]], inplace=True)
-# data.drop_duplicates(subset=['Intent'], inplace=True)
-data.reset_index(drop=True, inplace=True)
-print("Number of rows after dropping NaN and duplicates:", len(data)    )
-# Check the distribution of classes
-print(data["Intent"].value_counts())
-data.reset_index(drop=True, inplace=True)
-
 
 # %% ===================== True Stratified K-Fold CV (best-by eval_loss) =====================
 import os
@@ -50,6 +27,7 @@ from transformers import (
     set_seed,
 )
 
+DATA_CSV       = r"PATH_TO_SYNTHETIC_DATASET"  # <- set this to  dataset
 
 MODEL_NAME     = "GRoNLP/bert-base-dutch-cased"
 TEXT_COL       = "Synthetic Data"
@@ -60,7 +38,7 @@ SEED           = 42
 N_SPLITS       = 2
 
 OUTPUT_DIR = "./cv_runs_GRONLP_eval_loss"
-FINAL_SAVE_DIR = r"C:\Users\20245179\OneDrive - TU Eindhoven\LLM_EngD_project\Intent recognition Comments\Fine_tuned_4_intents\real_data_distrubution\models\fine_tune_BERT\intent_fine_tuned_4_intents_GRONLP_new3_CV"
+FINAL_SAVE_DIR = r"MODEL_SAVE_PATH\intent_fine_tuned_4_intents_GRONLP_new3_CV"
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(FINAL_SAVE_DIR, exist_ok=True)

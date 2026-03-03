@@ -41,7 +41,7 @@ from transformers import (
 # 0) Config
 # ---------------------------
 MODEL_NAME     = "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
-DATA_CSV       = r"C:\Users\20245179\OneDrive - TU Eindhoven\LLM_EngD_project\Intent recognition Comments\Synthetic_data\New_synthethic_data_generation.xlsx"  # <- set this to your dataset
+DATA_CSV       = r"PATH_TO_SYNTHETIC_DATASET"  # <- set this to  dataset # <- set this to your dataset
 TEXT_COL       = "Synthetic Data"
 LABEL_COL      = "Intent"
 
@@ -50,7 +50,7 @@ SEED           = 42
 N_SPLITS       = 2
 
 OUTPUT_DIR = "./cv_runs_debertaV3_eval_loss"
-FINAL_SAVE_DIR = r"C:\Users\20245179\OneDrive - TU Eindhoven\LLM_EngD_project\Intent recognition Comments\Fine_tuned_4_intents\real_data_distrubution\models\fine_tune_BERT\intent_fine_tuned_4_intents_debertaV3_new3_CV"
+FINAL_SAVE_DIR = r"MODEL_SAVE_PATH\intent_fine_tuned_4_intents_debertaV3_new3_CV"
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(FINAL_SAVE_DIR, exist_ok=True)

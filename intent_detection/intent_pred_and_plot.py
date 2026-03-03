@@ -83,8 +83,8 @@ def run_model_and_collect(model_dir, tok_dir, model_tag, texts, labels, batch_si
 # Run all three models
 models = ["GRONLP_new3_CV", "robert_new3_CV", "debertaV3_new3_CV"]
 for model_name in tqdm(models, desc="Loading models"):
-    model_output_dir = f"YOUR_PATH_HERE\\intent_fine_tuned_4_intents_{model_name}"
-    tokenizer_output_dir = f"YOUR_PATH_HERE\\intent_fine_tuned_4_intents_{model_name}"
+    model_output_dir = f"MODEL_SAVE_PATH\\intent_fine_tuned_4_intents_{model_name}"
+    tokenizer_output_dir = f"MODEL_SAVE_PATH\\intent_fine_tuned_4_intents_{model_name}"
 
     # Short, consistent tag for column names
     tag_map = {
@@ -153,7 +153,7 @@ intents.loc[
 ] = 'Forward'
 
 # Save the final DataFrame (now includes logits & probs per intent per model)
-intents.to_csv(r"YOUR_PATH_HERE\intent_predictions.csv", index=False)
+intents.to_csv(r"YOUR_PATH\intent_predictions.csv", index=False)
 
 
 # Count occurrences
