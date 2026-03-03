@@ -27,7 +27,7 @@ from transformers import (
     set_seed,
 )
 
-DATA_CSV       = r"PATH_TO_SYNTHETIC_DATASET"  # <- set this to  dataset
+DATA_EXCEL      = r"PATH_TO_SYNTHETIC_DATASET"  # <- set this to  dataset
 
 MODEL_NAME     = "GRoNLP/bert-base-dutch-cased"
 TEXT_COL       = "Synthetic Data"
@@ -35,7 +35,7 @@ LABEL_COL      = "Intent"
 
 MAX_LENGTH     = 384
 SEED           = 42
-N_SPLITS       = 2
+N_SPLITS       = 4
 
 OUTPUT_DIR = "./cv_runs_GRONLP_eval_loss"
 FINAL_SAVE_DIR = r"MODEL_SAVE_PATH\intent_fine_tuned_4_intents_GRONLP_new3_CV"
@@ -50,10 +50,10 @@ from intent_utils.intent_train_test_preprocess import preprocess
 # ---------------------------
 # 2) Load data
 # ---------------------------
-if not os.path.exists(DATA_CSV):
-    raise FileNotFoundError(f"DATA_CSV not found: {DATA_CSV}")
+if not os.path.exists(DATA_EXCEL):
+    raise FileNotFoundError(f"DATA_EXCEL not found: {DATA_EXCEL}")
 
-data = pd.read_excel(DATA_CSV)
+data = pd.read_excel(DATA_EXCEL)
 if TEXT_COL not in data.columns or LABEL_COL not in data.columns:
     raise KeyError(f"Expected columns '{TEXT_COL}' and '{LABEL_COL}'. Found: {list(data.columns)}")
 
@@ -204,8 +204,8 @@ for fold, (tr_idx, val_idx) in enumerate(skf.split(X, y), start=1):
         save_steps=eval_every,
         save_total_limit=2,
         load_best_model_at_end=True,
-        metric_for_best_model="macro_f1",   # <- select best by macro_f1
-        greater_is_better=True,
+        metric_for_best_model="eval_loss",   # <- select best by eval_loss
+        greater_is_better=False,            # <- lower eval_loss is better
         warmup_ratio=0.06,
         lr_scheduler_type="cosine",
         weight_decay=0.01,
