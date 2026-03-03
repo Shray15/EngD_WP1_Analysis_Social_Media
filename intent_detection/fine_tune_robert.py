@@ -45,7 +45,7 @@ DATA_EXCEL      = r"PATH_TO_SYNTHETIC_DATASET"  # <- set this to  dataset # <- s
 TEXT_COL       = "Synthetic Data"
 LABEL_COL      = "Intent"
 
-MAX_LENGTH     = 384
+MAX_LENGTH     = 512
 SEED           = 42
 N_SPLITS       = 4
 

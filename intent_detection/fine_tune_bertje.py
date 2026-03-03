@@ -33,7 +33,7 @@ MODEL_NAME     = "GRoNLP/bert-base-dutch-cased"
 TEXT_COL       = "Synthetic Data"
 LABEL_COL      = "Intent"
 
-MAX_LENGTH     = 384
+MAX_LENGTH     = 512
 SEED           = 42
 N_SPLITS       = 4
 
