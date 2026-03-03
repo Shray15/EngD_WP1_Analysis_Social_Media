@@ -43,9 +43,8 @@ for directory in [DATA_DIR, RAW_DATA_DIR, PROCESSED_DATA_DIR, SYNTHETIC_DATA_DIR
 # Pre-trained model names
 MODEL_NAMES = {
     "bert_dutch": "GRoNLP/bert-base-dutch-cased",
-    "deberta": "microsoft/deberta-v3-base",
-    "roberta": "roberta-base",
-    "distilbert_dutch": "distilbert-base-multilingual-cased"
+    "deberta": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+    "roberta": "DTAI-KULeuven/robbert-2023-dutch-large",
 }
 
 # Model hyperparameters
@@ -61,7 +60,7 @@ MODEL_CONFIG = {
 
 # Cross-validation settings
 CV_CONFIG = {
-    "n_splits": 5,
+    "n_splits": 2,
     "shuffle": True,
     "random_state": 42,
     "stratify": True
@@ -107,7 +106,7 @@ TIME_PERIOD = {
 # Clustering settings
 CLUSTERING_CONFIG = {
     "algorithm": "kmeans",
-    "n_clusters": 5,
+    "n_clusters": 6,
     "random_state": 42,
     "max_iter": 300
 }

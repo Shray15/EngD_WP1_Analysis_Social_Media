@@ -50,17 +50,13 @@ from transformers import (
     set_seed,
 )
 
-# ---------------------------
-# 0) Config
-# ---------------------------
-from config import MODEL_NAMES, MODEL_CONFIG, COLUMN_NAMES
 
-MODEL_NAME     = MODEL_NAMES["bert_dutch"]
-TEXT_COL       = COLUMN_NAMES["synthetic_data"]
-LABEL_COL      = COLUMN_NAMES["intent"]
+MODEL_NAME     = "GRoNLP/bert-base-dutch-cased"
+TEXT_COL       = "Synthetic Data"
+LABEL_COL      = "Intent"
 
-MAX_LENGTH     = MODEL_CONFIG["max_length"]
-SEED           = MODEL_CONFIG["seed"]
+MAX_LENGTH     = 384
+SEED           = 42
 N_SPLITS       = 2
 
 OUTPUT_DIR = "./cv_runs_GRONLP_eval_loss"
@@ -69,9 +65,9 @@ FINAL_SAVE_DIR = r"C:\Users\20245179\OneDrive - TU Eindhoven\LLM_EngD_project\In
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(FINAL_SAVE_DIR, exist_ok=True)
 set_seed(SEED)
-import sys
-sys.path.append(r"C:\Users\20245179\OneDrive - TU Eindhoven\LLM_EngD_project\Data") 
-from Data_Preprocessing_code.intent_train_test_preprocess import preprocess
+
+
+from intent_utils.intent_train_test_preprocess import preprocess
 
 # ---------------------------
 # 2) Load data

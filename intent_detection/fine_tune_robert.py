@@ -55,10 +55,8 @@ FINAL_SAVE_DIR = r"C:\Users\20245179\OneDrive - TU Eindhoven\LLM_EngD_project\In
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(FINAL_SAVE_DIR, exist_ok=True)
 set_seed(SEED)
-import sys
-sys.path.append(r"C:\Users\20245179\OneDrive - TU Eindhoven\LLM_EngD_project\Data") 
-from Data_Preprocessing_code.intent_train_test_preprocess import preprocess
 
+from intent_utils.intent_train_test_preprocess import preprocess
 # ---------------------------
 # 2) Load data
 # ---------------------------
