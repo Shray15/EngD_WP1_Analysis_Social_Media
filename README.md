@@ -5,10 +5,12 @@ This repository contains the implementation and analysis code for Work Package 1
 ## 📊 Project Overview
 
 This research project analyzes social media data through multiple dimensions:
+
 - **Sentiment Detection**: Classifying emotional tone of social media posts
 - **Intent Recognition**: Identifying user intentions and motivations
 - **Discourse Analysis**: Understanding conversation patterns and themes over time
 - **Relatedness Assessment**: Measuring similarity between posts and content
+- **Discourse Pattern Discovery**: Identifying emergent discourse types from the joint distribution of sentiment, intent, and relatedness using clustering
 
 ## 🏗️ Repository Structure
 
@@ -40,6 +42,14 @@ This research project analyzes social media data through multiple dimensions:
 - **Feature Analysis**: Multiple notebooks analyzing post features and discourse relationships
 - **Clustering**: K-means clustering analysis of comment probabilities
 - **Multinomial Logistic Modeling**: Advanced statistical modeling of discourse types
+
+### 🔍 Discourse Pattern Discovery *(new)*
+A core contribution of WP1 is the unsupervised discovery of **six emergent discourse patterns** from the joint distribution of sentiment, intent, and relatedness scores across tenant comments. Key findings:
+
+- **Clustering**: K-means clustering over the combined sentiment, intent, and relatedness feature space reveals six distinct discourse patterns.
+- **Characterisation**: Each discourse pattern is profiled by its distinguishing linguistic and structural properties, including sentiment polarity, dominant intent type, and relatedness to the original housing association post
+- **Predictive Validation**: Multinomial logistic regression is used to verify that discourse pattern membership is systematically associated with post-level features (e.g., post length, presence of URLs, question framing) and housing association characteristics (e.g., association size, geographic region, portfolio type)
+- This validates that the emergent patterns are not arbitrary clusters but reflect meaningful variation in how tenants engage with different types of institutional communication
 
 #### 📈 Data Processing
 - **Author Extraction**: `extract_author_name.ipynb`
@@ -120,9 +130,9 @@ The project includes sophisticated text preprocessing with:
 - Cluster-based discourse type classification
 
 ### Statistical Modeling
-- Multinomial logistic regression for discourse type prediction
-- K-means clustering for content similarity
-- Feature extraction from post characteristics
+- Multinomial logistic regression for discourse type prediction and validation
+- K-means clustering over sentiment, intent, and relatedness feature space
+- Feature extraction from post characteristics and housing association metadata
 
 ### Visualization
 - Time series plots of discourse evolution
@@ -173,11 +183,13 @@ If you use this work in your research, please cite the relevant EngD work packag
 ## 🔄 Workflow Overview
 
 1. **Data Collection & Preprocessing** → `data_utils/`
-2. **Model Training** → `intent_detection/`, `sentiment_detection/`  
+2. **Model Training** → `intent_detection/`, `sentiment_detection/`
 3. **Analysis & Evaluation** → Individual analysis notebooks
-4. **Discourse Analysis** → `discourse/` temporal and statistical analysis
-5. **Integration** → `Combine sentiment intent/` for multi-modal analysis
-6. **Similarity Assessment** → `relatedness/` for content relationships
+4. **Discourse Pattern Discovery** → Clustering over sentiment × intent × relatedness space
+5. **Statistical Validation** → Multinomial logistic regression against post and housing association features
+6. **Temporal Analysis** → `discourse/` temporal and statistical analysis
+7. **Integration** → `Combine sentiment intent/` for multi-modal analysis
+8. **Similarity Assessment** → `relatedness/` for content relationships
 
 ## 📊 Expected Outputs
 
