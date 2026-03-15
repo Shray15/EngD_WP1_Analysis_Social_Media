@@ -20,16 +20,18 @@ import html
 import unicodedata
 from typing import Optional
 
+# Compiled once at module import time for efficiency.
+_URL_RE = re.compile(r'https?://\S+|www\.\S+', re.I)
+_EMAIL_RE = re.compile(r'\b[\w\.-]+@[\w\.-]+\.\w+\b')
+_USER_RE = re.compile(r'(?<=\s)@\w+')
+_NUM_RE = re.compile(r'\b\d+(?:[.,]\d+)?\b')  # integers & decimals
+
 
 def preprocess(text: str) -> str:
     """
     Lightweight, model-friendly normalization for cased transformers.
     Keeps case, punctuation, emojis, and diacritics.
     """
-    _URL_RE   = re.compile(r'https?://\S+|www\.\S+', re.I)
-    _EMAIL_RE = re.compile(r'\b[\w\.-]+@[\w\.-]+\.\w+\b')
-    _USER_RE  = re.compile(r'(?<=\s)@\w+')
-    _NUM_RE   = re.compile(r'\b\d+(?:[.,]\d+)?\b')  # integers & decimals
     if text is None:
         return ""
     t = str(text)

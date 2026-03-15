@@ -47,7 +47,7 @@ MODEL_NAMES = {
     "roberta": "DTAI-KULeuven/robbert-2023-dutch-large",
 }
 
-# Model hyperparameters
+# Model hyperparameters (shared defaults)
 MODEL_CONFIG = {
     "max_length": 384,
     "batch_size": 16,
@@ -56,6 +56,35 @@ MODEL_CONFIG = {
     "warmup_steps": 500,
     "weight_decay": 0.01,
     "seed": 42
+}
+
+# Per-model fine-tuning hyperparameters used by intent_detection/train.py
+# Values reflect the tuned settings from the original per-model scripts.
+MODEL_HYPERPARAMS = {
+    "bert_dutch": {
+        "per_device_train_batch_size": 8,
+        "gradient_accumulation_steps": 2,
+        "learning_rate": 3e-5,
+        "num_train_epochs": 4,
+        "output_dir_prefix": "cv_runs_GRONLP_eval_loss",
+        "final_save_key": "bert_dutch",  # maps to MODEL_SAVE_PATHS
+    },
+    "deberta": {
+        "per_device_train_batch_size": 6,
+        "gradient_accumulation_steps": 4,
+        "learning_rate": 1.5e-5,
+        "num_train_epochs": 3,
+        "output_dir_prefix": "cv_runs_debertaV3_eval_loss",
+        "final_save_key": "deberta",
+    },
+    "roberta": {
+        "per_device_train_batch_size": 1,
+        "gradient_accumulation_steps": 16,
+        "learning_rate": 2e-5,
+        "num_train_epochs": 3,
+        "output_dir_prefix": "cv_runs_robbert_eval_loss",
+        "final_save_key": "roberta",
+    },
 }
 
 # Cross-validation settings
@@ -204,6 +233,10 @@ def check_environment():
         print(f"CUDA device: {torch.cuda.get_device_name()}")
     print(f"Project root: {PROJECT_ROOT}")
     print("=========================")
+
+# Initialise logging when the config module is imported so that all scripts
+# get a consistent log format without each having to call setup_logging().
+logger = setup_logging()
 
 if __name__ == "__main__":
     # Run environment check when this module is executed directly
