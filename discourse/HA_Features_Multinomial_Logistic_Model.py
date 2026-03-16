@@ -18,7 +18,6 @@
 # 
 # **Statistical Method:** Multinomial Logistic Regression
 
-# In[34]:
 
 
 # Import Required Libraries
@@ -35,7 +34,6 @@ print("🏠 HOUSING AUTHORITY FEATURES ANALYSIS")
 print("=" * 42)
 print("📊 Libraries loaded successfully!")
 
-# In[35]:
 
 
 # Load Data
@@ -43,7 +41,7 @@ print("📂 LOADING DATA")
 print("=" * 15)
 
 # Load the dataset with K-means clusters and HA features
-data_path = r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Data\KMeans_filtered_with_HA_feature_levels_top50.csv"
+data_path = r"PATH_TO_KMEANS_HA_FEATURES_CSV"  # e.g. data/KMeans_filtered_with_HA_feature_levels_top50.csv
 df = pd.read_csv(data_path)
 
 print(f"✅ Data loaded successfully!")
@@ -59,12 +57,10 @@ for cluster, count in cluster_dist.items():
 
 print(f"\n📊 Total samples: {len(df):,}")
 
-# In[36]:
 
 
 df
 
-# In[37]:
 
 
 # unique author count and unique post count
@@ -107,7 +103,6 @@ print(df.columns.tolist())
 
 
 
-# In[38]:
 
 
 # Define and Explore HA Features
@@ -142,7 +137,6 @@ if missing_values.sum() > 0:
 else:
     print(f"\n✅ No missing values in HA features")
 
-# In[39]:
 
 
 # Comprehensive Descriptive Statistics Table
@@ -262,7 +256,6 @@ for idx, row in descriptive_df.iterrows():
 
 print("✅ Descriptive statistics analysis complete!")
 
-# In[40]:
 
 
 # Create Categorical Levels for HA Features
@@ -301,12 +294,10 @@ ha_level_features = [f"{feature}_Level" for feature in ha_features]
 print(f"✅ Created {len(ha_level_features)} binary categorical HA features")
 print(f"📊 Categorical features: {ha_level_features}")
 
-# In[ ]:
 
 
 
 
-# In[41]:
 
 
 # Prepare Data for Multinomial Logistic Regression
@@ -347,7 +338,6 @@ print(f"\n📋 Dummy variable columns:")
 for i, col in enumerate(dummy_columns, 1):
     print(f"   {i:2d}. {col}")
 
-# In[42]:
 
 
 # Clean Data and Prepare for StatsModels
@@ -421,7 +411,6 @@ print(f"📊 Features ready for multinomial logistic regression")
 print(f"🏠 HA reference level: 'Low_Medium' (excluded from model)")
 print(f"🎯 Cluster baseline: Information Seeking (class 0)")
 
-# In[43]:
 
 
 # Fit Multinomial Logistic Regression Model
@@ -489,7 +478,6 @@ except Exception as e:
     print(f"\n❌ Model fitting failed: {e}")
     print(f"🔄 This may be due to data issues or convergence problems")
 
-# In[44]:
 
 
 # Detailed Statistical Results Analysis
@@ -644,7 +632,6 @@ if 'results' in locals() and results is not None:
 else:
     print("❌ No model results available for analysis")
 
-# In[45]:
 
 
 # Model Summary and Interpretation
@@ -744,7 +731,6 @@ if 'results_df' in locals():
 else:
     print("❌ No results available for summary")
 
-# In[46]:
 
 
 # Visualization of Results
@@ -923,12 +909,10 @@ if 'results_df' in locals():
 else:
     print("❌ No data available for visualization")
 
-# In[ ]:
 
 
 
 
-# In[ ]:
 
 
 

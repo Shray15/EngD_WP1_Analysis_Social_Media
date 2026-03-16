@@ -28,7 +28,6 @@
 # - Post features: 'Low' level (excluded)
 # - Discourse type: 'Information Seeking' (baseline)
 
-# In[31]:
 
 
 # Import Required Libraries
@@ -46,7 +45,6 @@ print("📝 POST FEATURES AND DISCOURSE TYPES ANALYSIS")
 print("=" * 46)
 print("📊 Libraries loaded successfully!")
 
-# In[32]:
 
 
 # Load Data
@@ -54,7 +52,7 @@ print("📂 LOADING DATA")
 print("=" * 15)
 
 # Load the dataset with K-means clusters
-data_path = r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Analysis_pipeline\CLustered_Kmeans_with_HA_features.csv"
+data_path = r"PATH_TO_CLUSTERED_KMEANS_HA_FEATURES_CSV"  # e.g. data/CLustered_Kmeans_with_HA_features.csv
 df = pd.read_csv(data_path)
 
 print(f"✅ Data loaded successfully!")
@@ -81,7 +79,6 @@ for cluster, count in cluster_dist.items():
 
 print(f"\n📊 Total samples: {len(df):,}")
 
-# In[33]:
 
 
 # Examine Dataset Structure for POST Content
@@ -129,7 +126,6 @@ if id_columns:
         else:
             print(f"      Sample values: {sorted(df[col].unique())[:5]}...")
 
-# In[34]:
 
 
 # Create Post Features (CORRECTED - Using POST content, not comments)
@@ -248,7 +244,6 @@ else:
 
 print(f"\n🎯 Now analyzing POST characteristics that lead to different discourse types in comments!")
 
-# In[35]:
 
 
 # Categorize Continuous Post Features
@@ -311,7 +306,6 @@ for i, feature in enumerate(post_feature_columns, 1):
 print(f"\n🎯 These {len(post_feature_columns)} features will be used to predict discourse types")
 print(f"📝 Features include: post length categories, unique words percentage, and interaction patterns")
 
-# In[ ]:
 
 
 # Prepare Data for Modeling
@@ -369,7 +363,6 @@ print(f"\n📋 Final feature columns:")
 for i, col in enumerate(dummy_columns, 1):
     print(f"   {i:2d}. {col}")
 
-# In[37]:
 
 
 # Diagnostic Check for NaN Issues
@@ -479,7 +472,6 @@ except:
 
 print(f"\n🔍 Diagnostic check complete. Issues found above may cause NaN results.")
 
-# In[38]:
 
 
 # Fix NaN Issues - Data Preparation
@@ -615,7 +607,6 @@ else:
 
 print(f"\n🎯 Ready to refit model with fixed data!")
 
-# In[ ]:
 
 
 # Refit Model with Fixed Data
@@ -706,7 +697,6 @@ except Exception as e:
     print(f"\n❌ Model fitting failed: {e}")
     print("Additional debugging may be needed")
 
-# In[40]:
 
 
 # Final Fix - Simplest Approach
@@ -813,7 +803,6 @@ if not separation_final:
 
 print(f"\n✅ Simplified approach ready for model fitting!")
 
-# In[ ]:
 
 
 # Clean Data and Prepare Target Variable
@@ -878,7 +867,6 @@ print(f"📊 Features ready for multinomial logistic regression")
 print(f"📝 Post feature reference level: 'Low' (excluded from model)")
 print(f"🎯 Discourse type baseline: Information Seeking (class 0)")
 
-# In[ ]:
 
 
 # Fit Multinomial Logistic Regression Model
@@ -946,7 +934,6 @@ except Exception as e:
     print(f"\n❌ Model fitting failed: {e}")
     print(f"🔄 This may be due to data issues or convergence problems")
 
-# In[43]:
 
 
 # Quick Check: Model Success
@@ -982,7 +969,6 @@ if 'results' in locals() and results is not None:
 else:
     print(f"❌ Model fitting failed or 'results' not available")
 
-# In[44]:
 
 
 # Detailed Statistical Results Analysis
@@ -1129,7 +1115,6 @@ if 'results' in locals() and results is not None:
 else:
     print("❌ No model results available for analysis")
 
-# In[45]:
 
 
 # Model Summary and Interpretation
@@ -1217,7 +1202,6 @@ if 'results_df' in locals():
 else:
     print("❌ No results available for summary")
 
-# In[46]:
 
 
 # Key Results Summary
@@ -1254,7 +1238,6 @@ if 'results' in locals() and 'results_df' in locals():
 else:
     print("❌ Model results not available")
 
-# In[47]:
 
 
 # Visualization of Results
@@ -1366,7 +1349,6 @@ if 'results_df' in locals():
 else:
     print("❌ No data available for visualization")
 
-# In[48]:
 
 
 # Export Results
@@ -1376,12 +1358,12 @@ print("=" * 30)
 if 'results_df' in locals():
     
     # Export detailed results to CSV
-    output_path = r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Analysis_pipeline\Post_Features_Discourse_Types_Results.csv"
+    output_path = r"PATH_TO_OUTPUT_RESULTS_CSV"  # e.g. results/Post_Features_Discourse_Types_Results.csv
     results_df.to_csv(output_path, index=False)
     print(f"✅ Detailed results exported to: {output_path}")
     
     # Create summary report
-    summary_path = r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Analysis_pipeline\Post_Features_Model_Summary.txt"
+    summary_path = r"PATH_TO_OUTPUT_SUMMARY_TXT"  # e.g. results/Post_Features_Model_Summary.txt
     
     with open(summary_path, 'w') as f:
         f.write("POST FEATURES AND DISCOURSE TYPES - MULTINOMIAL LOGISTIC REGRESSION SUMMARY\n")

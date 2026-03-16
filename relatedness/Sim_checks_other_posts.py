@@ -1,18 +1,22 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
 
 
 import pandas as pd
-df = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Data\final_data_cleaned_with_author_names.csv")
 
-# In[2]:
+# =============================================================================
+# CONFIGURATION — update this path for your environment
+# =============================================================================
+INPUT_DATA_CSV = r"PATH_TO_CLEANED_DATA_CSV"  # e.g. data/final_data_cleaned_with_author_names.csv
+# =============================================================================
+
+df = pd.read_csv(INPUT_DATA_CSV)
+
 
 
 df
 
-# In[ ]:
 
 
 from sentence_transformers import SentenceTransformer, util
@@ -135,7 +139,6 @@ plt.show()
 
 
 
-# In[ ]:
 
 
 

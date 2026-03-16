@@ -1,7 +1,13 @@
 # posts features to be created: length, number of comments, topics covered,  nu_words
 import pandas as pd
 
-df1 = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Data\final_data_with_author_names.csv")
+# =============================================================================
+# CONFIGURATION — update this path for your environment
+# =============================================================================
+FINAL_DATA_CSV = r"PATH_TO_FINAL_DATA_WITH_AUTHOR_NAMES_CSV"  # e.g. data/final_data_with_author_names.csv
+# =============================================================================
+
+df1 = pd.read_csv(FINAL_DATA_CSV)
 
 posts_df = df.copy()   # your original posts dataframe
 
@@ -40,7 +46,7 @@ posts_df['Post'] = posts_df['Post'].fillna('')
 
 # merge author name from df2 on Post
 
-df2 = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Data\final_data_with_author_names.csv")
+df2 = pd.read_csv(FINAL_DATA_CSV)
 df2 = df2[['text_ha', 'author_name']]
 
 # Make sure both columns are lowercase strings
