@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
 
 
 import re
@@ -14,8 +13,8 @@ import spacy
 # ----------------------
 
 
-INPUT_DATA    = r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\final_data_with_author_names.csv"
-OUTPUT_CSV   = r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\final_data_cleaned_with_author_names.csv"
+INPUT_DATA    = r"PATH_TO_FINAL_DATA_WITH_AUTHOR_NAMES_CSV"   # e.g. data/final_data_with_author_names.csv
+OUTPUT_CSV    = r"PATH_TO_OUTPUT_CSV"                          # e.g. data/final_data_cleaned_with_author_names.csv
 
 TEXT_COL    = "text"        # the text column to clean
 ORG_COL     = "author_name"   # where org names come from
@@ -95,7 +94,6 @@ Path(OUTPUT_CSV).parent.mkdir(parents=True, exist_ok=True)
 data.to_csv(OUTPUT_CSV, index=False)
 print(f"Saved cleaned data -> {OUTPUT_CSV}")
 
-# In[ ]:
 
 
 

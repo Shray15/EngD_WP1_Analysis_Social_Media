@@ -1,6 +1,12 @@
 import pandas as pd
 
-df = pd.read_csv("C:\\Users\\20245179\\OneDrive - TU Eindhoven\\Research Paper\\Combine sentiment intent\\Combined_Sentiment_Intent_all_data.csv")
+# =============================================================================
+# CONFIGURATION — update this path for your environment
+# =============================================================================
+COMBINED_SENTIMENT_INTENT_CSV = r"PATH_TO_COMBINED_SENTIMENT_INTENT_CSV"  # e.g. data/Combined_Sentiment_Intent_all_data.csv
+# =============================================================================
+
+df = pd.read_csv(COMBINED_SENTIMENT_INTENT_CSV)
 
 
 # similarity of comments to its respective post

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
 
 
 import warnings
@@ -16,7 +15,13 @@ from tqdm import tqdm
 nltk.download('punkt')
 
 # Load the data
-data = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\final_data_cleaned_with_author_names.csv")
+# =============================================================================
+# CONFIGURATION — update this path for your environment
+# =============================================================================
+INPUT_DATA_CSV = r"PATH_TO_CLEANED_DATA_CSV"  # e.g. data/final_data_cleaned_with_author_names.csv
+# =============================================================================
+
+data = pd.read_csv(INPUT_DATA_CSV)
 data.replace('\n', pd.NA, inplace=True)
 
 # Drop rows containing NaN values
@@ -161,7 +166,6 @@ df.to_csv("Sentiments_cleaned_comments.csv", index=False)
 
 
 
-# In[3]:
 
 
 import matplotlib.pyplot as plt
@@ -192,12 +196,10 @@ plt.tight_layout()
 plt.show()
 
 
-# In[4]:
 
 
 sentiment_counts
 
-# In[ ]:
 
 
 #### plot categories

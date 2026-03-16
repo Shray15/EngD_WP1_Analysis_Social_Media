@@ -1,13 +1,19 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[13]:
 
 
 import pandas as pd
 
+# =============================================================================
+# CONFIGURATION — update these paths for your environment
+# =============================================================================
+IO_DATA_CSV     = r"PATH_TO_IO_ANNOTATED_CSV"      # e.g. data/comments_sustainability_4labeling_lbld_io.csv
+CARLIJN_DATA_XLSX = r"PATH_TO_CARLIJN_LABELED_XLSX" # e.g. data/test_sentiment_data_262_comments_labeled.xlsx
+# =============================================================================
+
 # process io_data_df
-io_data_df = (r"C:\Users\20245179\OneDrive - TU Eindhoven\LLM_EngD_project\Intent recognition Comments\annotate_data_subset\comments_sustainability_4labeling_lbld_io.csv")
+io_data_df = IO_DATA_CSV
 rows = []
 with open(io_data_df, encoding='utf-8') as f:
     for line in f:
@@ -47,33 +53,28 @@ io_data_df['sentiment1'] = io_data_df['sentiment1'].replace('p', '1')
 
 
 
-# In[15]:
 
 
 io_data_df["sentiment1"].value_counts()
 
-# In[6]:
 
 
 #### process calrlijn_data
 import pandas as pd
-carlijn_data = pd.read_excel(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\sentiment pred\test_sentiment_data_262_comments_labeled.xlsx")
+carlijn_data = pd.read_excel(CARLIJN_DATA_XLSX)
 carlijn_data["PI_Sentiment"] = carlijn_data["PI_Sentiment"].str.lower()
 carlijn_data["PI_Sentiment"] = carlijn_data["PI_Sentiment"].replace("neutral", "0")
 carlijn_data["PI_Sentiment"] = carlijn_data["PI_Sentiment"].replace("positive", "1")
 carlijn_data["PI_Sentiment"] = carlijn_data["PI_Sentiment"].replace("negative", "-1")
 
-# In[7]:
 
 
 carlijn_data
 
-# In[8]:
 
 
 carlijn_data_sent = carlijn_data[["Comments", "PI_Sentiment"]]
 
-# In[ ]:
 
 
 import warnings
@@ -158,18 +159,15 @@ for model_name, acc in results.items():
     print(f"{model_name:65s} => {acc:.4f}")
 
 
-# In[13]:
 
 
 for model_name, acc in results.items():
     print(f"{model_name:65s} => {acc:.4f}")
 
-# In[15]:
 
 
 results
 
-# In[19]:
 
 
 #### evaluation of top 3 perforingg models using majprty voting
@@ -329,12 +327,10 @@ for i in tqdm(range(len(data["Comments"]))):
 
 
 
-# In[20]:
 
 
 df
 
-# In[21]:
 
 
 to_check = pd.DataFrame()
@@ -342,12 +338,10 @@ to_check["Comment"] = data["Comments"]
 to_check["pred_sentiment"] = df["Sentiment over comment from models"]
 to_check["real_sentiment"] = data["PI_Sentiment"]
 
-# In[22]:
 
 
 to_check
 
-# In[23]:
 
 
 y_true = [str(label) for label in to_check["real_sentiment"]]
@@ -355,7 +349,6 @@ y_pred = [str(label) for label in to_check["pred_sentiment"]]
 import numpy as np
 print(classification_report(y_true, y_pred, digits=3))
 
-# In[ ]:
 
 
 

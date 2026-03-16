@@ -10,12 +10,6 @@ transformers>=4.21.0
 datasets>=2.5.0
 tokenizers>=0.13.0
 
-# Jupyter and notebook support
-jupyter>=1.0.0
-jupyterlab>=3.4.0
-ipython>=7.34.0
-ipywidgets>=7.7.0
-
 # Visualization
 matplotlib>=3.5.0
 seaborn>=0.11.0
@@ -57,8 +51,8 @@ flake8>=5.0.0
 optuna>=3.0.0  # for hyperparameter optimization
 wandb>=0.13.0  # for experiment tracking (optional)
 
-# Dutch language processing
-spacy-model-nl-core-news-sm  # Dutch spaCy model (install via: python -m spacy download nl_core_news_sm)
+# Dutch language model (not a pip package — install separately after pip install):
+#   python -m spacy download nl_core_news_lg
 
 # GPU support (uncomment if using CUDA)
 # torch-audio  

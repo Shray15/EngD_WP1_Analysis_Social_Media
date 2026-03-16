@@ -1,32 +1,35 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[17]:
 
 
 import pandas as pd
 
-d1 = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Data\final_data.csv")
-d2 = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Data\data_23.csv")
+# =============================================================================
+# CONFIGURATION — update these paths for your environment
+# =============================================================================
+FINAL_DATA_CSV       = r"PATH_TO_FINAL_DATA_CSV"        # e.g. data/final_data.csv
+DATA_23_CSV          = r"PATH_TO_DATA_23_CSV"            # e.g. data/data_23.csv
+OUTPUT_CSV           = r"PATH_TO_OUTPUT_CSV"             # e.g. data/final_data_with_author_names.csv
+# =============================================================================
 
-# In[18]:
+d1 = pd.read_csv(FINAL_DATA_CSV)
+d2 = pd.read_csv(DATA_23_CSV)
+
 
 
 d1
 
-# In[19]:
 
 
 
 print(d1.columns)
 print(d2.columns)
 
-# In[21]:
 
 
 d2
 
-# In[14]:
 
 
 # Ensure keys are the same type
@@ -47,17 +50,14 @@ d1['weekday'] = d1['ha_id'].map(weekday_map)
 d1['month'] = d1['ha_id'].map(month_map)
 d1['year'] = d1['ha_id'].map(year_map)
 
-# In[15]:
 
 
 d1
 
-# In[16]:
 
 
-d1.to_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\final_data_with_author_names.csv", index=False)
+d1.to_csv(OUTPUT_CSV, index=False)
 
-# In[ ]:
 
 
 

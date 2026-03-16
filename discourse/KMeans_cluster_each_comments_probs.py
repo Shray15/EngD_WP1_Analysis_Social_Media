@@ -1,14 +1,21 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[130]:
 
 
 import pandas as pd
 
-df = pd.read_csv("C:\\Users\\20245179\\OneDrive - TU Eindhoven\\Research Paper\\Combine sentiment intent\\Combined_Sentiment_Intent_all_data.csv")
+# =============================================================================
+# CONFIGURATION — update these paths for your environment
+# =============================================================================
+COMBINED_SENTIMENT_INTENT_CSV = r"PATH_TO_COMBINED_SENTIMENT_INTENT_CSV"   # e.g. data/Combined_Sentiment_Intent_all_data.csv
+CLUSTERED_CSV                 = r"PATH_TO_CLUSTERED_COMMENTS_CSV"          # e.g. data/Clustered_Comments_Probabilities_KMeans.csv
+FINAL_DATA_CSV                = r"PATH_TO_FINAL_DATA_WITH_AUTHOR_NAMES_CSV" # e.g. data/final_data_with_author_names.csv
+CLEANED_DATA_CSV              = r"PATH_TO_CLEANED_DATA_CSV"                 # e.g. data/final_data_cleaned_with_author_names.csv
+# =============================================================================
 
-# In[132]:
+df = pd.read_csv(COMBINED_SENTIMENT_INTENT_CSV)
+
 
 
 # similarity of comments to its respective post
@@ -64,12 +71,10 @@ df["Similarity_Category"] = df["Similarity"].apply(lambda x: categorize_similari
 df["Similarity_Category"].value_counts()
 
 
-# In[96]:
 
 
 df
 
-# In[97]:
 
 
 # assuming your DataFrame is called df
@@ -97,7 +102,6 @@ features = [
 X = df[features].copy()
 
 
-# In[98]:
 
 
 from sklearn.preprocessing import StandardScaler
@@ -106,7 +110,6 @@ scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
 
-# In[99]:
 
 
 from sklearn.metrics import silhouette_score
@@ -119,7 +122,6 @@ for k in range(2, 20):
     scores.append(silhouette_score(X_scaled, km.labels_))
 pd.DataFrame({"k": range(2, 20), "silhouette": scores})
 
-# In[100]:
 
 
 
@@ -128,7 +130,6 @@ kmeans = KMeans(n_clusters=k, random_state=42)
 df["Cluster_KMeans"] = kmeans.fit_predict(X_scaled)
 
 
-# In[101]:
 
 
 cluster_summary = (
@@ -139,12 +140,10 @@ cluster_summary = (
 print(cluster_summary)
 
 
-# In[102]:
 
 
 df
 
-# In[103]:
 
 
 from sklearn.decomposition import PCA
@@ -203,14 +202,13 @@ plt.tight_layout()
 plt.show()
 
 
-# In[104]:
 
 
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# df = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Clustering\Probabilties\Clustered_Comments_Probabilities_KMeans.csv")
+# df = pd.read_csv(CLUSTERED_CSV)
 # rename sentiment over comments from models to Sentiment
 df.rename(columns={'Sentiment over comment from models': 'Sentiment'}, inplace=True)
 
@@ -245,12 +243,10 @@ plt.tight_layout()
 plt.show()
 
 
-# In[37]:
 
 
 df
 
-# In[10]:
 
 
 # Smoothed timeline visualization aggregated by quarter (Q1 2018 to Q1 2023)
@@ -262,7 +258,7 @@ from matplotlib.ticker import MultipleLocator
 import numpy as np
 
 # Load data
-df = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Clustering\Probabilties\Clustered_Comments_Probabilities_KMeans.csv")
+df = pd.read_csv(CLUSTERED_CSV)
 
 # Ensure datetime format
 df["Comments_time"] = pd.to_datetime(df["Comments_time"])
@@ -425,18 +421,15 @@ for cluster in clusters_sorted_by_name:
 
 plt.show()
 
-# In[53]:
 
 
-df = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Clustering\Probabilties\Clustered_Comments_Probabilities_KMeans.csv")
+df = pd.read_csv(CLUSTERED_CSV)
 
 
-# In[54]:
 
 
 df
 
-# In[61]:
 
 
 # Create one-hot encoding for Similarity_Category
@@ -478,12 +471,10 @@ k = 12 # pick based on elbow/ silhouette
 kmeans = KMeans(n_clusters=k, random_state=42)
 df["Cluster_KMeans"] = kmeans.fit_predict(X_scaled)
 
-# In[58]:
 
 
 df
 
-# In[62]:
 
 
 # Create cluster summary with new features including similarity categories
@@ -543,18 +534,16 @@ plt.show()
 # 
 # # corelate comment distribution to the posts features
 
-# In[106]:
 
 
-df.to_csv("C:\\Users\\20245179\\OneDrive - TU Eindhoven\\Research Paper\\Clustering\\Probabilties\\Clustered_Comments_Probabilities_KMeans.csv", index=False)
+df.to_csv(CLUSTERED_CSV, index=False)
 
-# In[122]:
 
 
 # posts features to be created: length, number of comments, topics covered,  nu_words
 import pandas as pd
 
-df1 = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Data\final_data_with_author_names.csv")
+df1 = pd.read_csv(FINAL_DATA_CSV)
 
 posts_df = df.copy()   # your original posts dataframe
 
@@ -595,7 +584,7 @@ posts_df['Post'] = posts_df['Post'].fillna('')
 
 # merge author name from df2 on Post
 
-df2 = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Data\final_data_with_author_names.csv")
+df2 = pd.read_csv(FINAL_DATA_CSV)
 df2 = df2[['text_ha', 'author_name']]
 
 # Make sure both columns are lowercase strings
@@ -616,17 +605,14 @@ posts_df = posts_df.merge(
 
 
 
-# In[123]:
 
 
 posts_df
 
-# In[127]:
 
 
 pd.crosstab(posts_df["length_category"], posts_df["Cluster_KMeans"])
 
-# In[129]:
 
 
 # count the number of unique posts per length category
@@ -635,7 +621,6 @@ unique_posts_per_length.columns = ["length_category", "num_unique_posts"]
 print(unique_posts_per_length)
 
 
-# In[164]:
 
 
 features_kde = ["num_hashtags", "num_unique_words"]   # numeric features → KDE
@@ -716,7 +701,6 @@ for feature in features_bar:
 
 
 
-# In[150]:
 
 
 features_kde = ["num_hashtags", "num_unique_words"]   # numeric features → KDE
@@ -769,7 +753,6 @@ for feature in features_kde:
     plt.show()
 
 
-# In[120]:
 
 
 import pandas as pd
@@ -819,12 +802,10 @@ plt.tight_layout()
 plt.show()
 
 
-# In[121]:
 
 
 author_summary
 
-# In[140]:
 
 
 # 1) per-post cluster proportions from df (comments)
@@ -839,12 +820,10 @@ post_cluster_wide.columns = [f'Clusters_{int(c)}' for c in post_cluster_wide.col
 post_level = posts_df.merge(post_cluster_wide, left_on='Post', right_index=True, how='left').fillna(0)
 
 
-# In[141]:
 
 
 post_level
 
-# In[147]:
 
 
 import seaborn as sns
@@ -863,7 +842,6 @@ for author, sub in list(post_level.groupby('author_name'))[:10]:
     plt.tight_layout(); plt.show()
 
 
-# In[150]:
 
 
 import seaborn as sns
@@ -903,13 +881,12 @@ for author in target_authors:
 
 # # Multinmial Logistic regression: Posts features and clusters
 
-# In[3]:
 
 
 # posts features to be created: length, number of comments, topics covered,  nu_words
 
 import pandas as pd
-df = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Clustering\Probabilties\Clustered_Comments_Probabilities_KMeans.csv")
+df = pd.read_csv(CLUSTERED_CSV)
 posts_df =df.copy()
 #number pf comments per post
 comments_per_post = posts_df.groupby('Post').size().reset_index(name='num_comments')
@@ -932,7 +909,7 @@ for kw in sustainability_keywords:
 
 # merge author name from df2 on Post
 
-df2 = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Data\final_data_cleaned_with_author_names.csv")
+df2 = pd.read_csv(CLEANED_DATA_CSV)
 df2 = df2[['text_ha', 'author_name']]
 
 # Make sure both columns are lowercase strings
@@ -954,12 +931,10 @@ posts_df = posts_df.merge(
 posts_df.drop(columns=['text_ha'], inplace=True)
 
 
-# In[6]:
 
 
 posts_df.columns
 
-# In[9]:
 
 
 # If needed:
@@ -998,7 +973,6 @@ result = model.fit(method="newton", maxiter=100, full_output=True, disp=False)
 
 
 
-# In[10]:
 
 
 # odds_ratios = np.exp(coef)
@@ -1148,12 +1122,10 @@ print(mfx.summary())
 # 
 # Overall, the results show that both linguistic richness and topical framing shape the emotional and discursive patterns of reader responses, shifting comment distributions across neutral, critical, appreciative, and inquiry-oriented categories.
 
-# In[13]:
 
 
 posts_df["author_name"].unique()
 
-# In[ ]:
 
 
 

@@ -6,8 +6,14 @@ from datetime import datetime
 from matplotlib.ticker import MultipleLocator
 import numpy as np
 
+# =============================================================================
+# CONFIGURATION — update this path for your environment
+# =============================================================================
+CLUSTERED_CSV = r"PATH_TO_CLUSTERED_COMMENTS_CSV"  # e.g. data/Clustered_Comments_Probabilities_KMeans.csv
+# =============================================================================
+
 # Load data
-df = pd.read_csv(r"C:\Users\20245179\OneDrive - TU Eindhoven\Research Paper\Clustering\Probabilties\Clustered_Comments_Probabilities_KMeans.csv")
+df = pd.read_csv(CLUSTERED_CSV)
 
 # Ensure datetime format
 df["Comments_time"] = pd.to_datetime(df["Comments_time"])
